@@ -10,6 +10,7 @@
 #define IDD_MISSION_EDIT_DIALOG         129
 #define IDD_MISSION_MANAGER_DIALOG      130
 #define IDD_LAUNCH_CHECK_DIALOG         131
+#define IDD_LAUNCH_SIMULATION_DIALOG    132
 #define IDC_EDIT_MISSION_ID             1000
 #define IDC_EDIT_MISSION_NAME           1001
 #define IDC_EDIT_ROCKET_NAME            1002
@@ -34,14 +35,26 @@
 #define IDC_BUTTON_CHECK_ALL_PASS       1021
 #define IDC_BUTTON_CHECK_SAVE           1022
 #define IDC_BUTTON_ENTER_SIMULATION     1023
+#define IDC_STATIC_SIM_MISSION          1024
+#define IDC_STATIC_COUNTDOWN            1025
+#define IDC_PROGRESS_LAUNCH             1026
+#define IDC_PROGRESS_FUEL               1027
+#define IDC_STATIC_ALTITUDE             1028
+#define IDC_STATIC_SPEED                1029
+#define IDC_STATIC_STAGE                1030
+#define IDC_EDIT_LAUNCH_LOG             1031
+#define IDC_BUTTON_LAUNCH_START         1032
+#define IDC_BUTTON_LAUNCH_PAUSE         1033
+#define IDC_BUTTON_LAUNCH_ABORT         1034
+#define IDC_BUTTON_LAUNCH_RESET         1035
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        132
+#define _APS_NEXT_RESOURCE_VALUE        133
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1024
+#define _APS_NEXT_CONTROL_VALUE         1036
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

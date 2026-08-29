@@ -187,6 +187,7 @@
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="LaunchCheckDlg.h" />
+    <ClInclude Include="LaunchSimulationDlg.h" />
     <ClInclude Include="MissionEditDlg.h" />
     <ClInclude Include="MissionManagerDlg.h" />
     <ClInclude Include="pch.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="DataTypes.cpp" />
     <ClCompile Include="LaunchCheckDlg.cpp" />
+    <ClCompile Include="LaunchSimulationDlg.cpp" />
     <ClCompile Include="MissionEditDlg.cpp" />
     <ClCompile Include="MissionManagerDlg.cpp" />
     <ClCompile Include="pch.cpp">

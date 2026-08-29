@@ -21,6 +21,9 @@
     <ClInclude Include="DataTypes.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MissionEditDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="SpaceLaunchSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -45,6 +48,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DataTypes.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionEditDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SpaceLaunchSystem.cpp">

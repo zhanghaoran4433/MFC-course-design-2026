@@ -82,25 +82,25 @@ flowchart TD
 ```text
 SpaceLaunchSystem/
 ├─ SpaceLaunchSystem.sln
-├─ SpaceLaunchSystem/
-│  ├─ SpaceLaunchSystemDlg.h
-│  ├─ SpaceLaunchSystemDlg.cpp
-│  ├─ SpaceLaunchSystem.rc
-│  ├─ resource.h
-│  ├─ DataTypes.h
-│  ├─ DataTypes.cpp
-│  ├─ DataManager.h
-│  ├─ DataManager.cpp
-│  ├─ MissionManagerDlg.h
-│  ├─ MissionManagerDlg.cpp
-│  ├─ MissionEditDlg.h
-│  ├─ MissionEditDlg.cpp
-│  ├─ LaunchCheckDlg.h
-│  ├─ LaunchCheckDlg.cpp
-│  ├─ LaunchSimulationDlg.h
-│  ├─ LaunchSimulationDlg.cpp
-│  ├─ HistoryDlg.h
-│  └─ HistoryDlg.cpp
+├─ SpaceLaunchSystem.vcxproj
+├─ SpaceLaunchSystemDlg.h
+├─ SpaceLaunchSystemDlg.cpp
+├─ SpaceLaunchSystem.rc
+├─ Resource.h
+├─ DataTypes.h
+├─ DataTypes.cpp
+├─ DataManager.h
+├─ DataManager.cpp
+├─ MissionManagerDlg.h
+├─ MissionManagerDlg.cpp
+├─ MissionEditDlg.h
+├─ MissionEditDlg.cpp
+├─ LaunchCheckDlg.h
+├─ LaunchCheckDlg.cpp
+├─ LaunchSimulationDlg.h
+├─ LaunchSimulationDlg.cpp
+├─ HistoryDlg.h
+├─ HistoryDlg.cpp
 ├─ docs/
 │  ├─ CODEX_EXECUTION_SPEC.md
 │  ├─ TEST_CHECKLIST.md
@@ -567,11 +567,11 @@ afx_msg void OnBnClickedHistoryExport();
 
 ## 9. 资源文件修改规则
 
-MFC 的 `.rc` 和 `resource.h` 是本项目最高风险文件，Codex 必须遵守：
+MFC 的 `.rc` 和 `Resource.h` 是本项目最高风险文件，Codex 必须遵守：
 
 1. 修改前先确认 Git 工作区状态和基线可生成。
 2. 不删除 `IDD_ABOUTBOX`、主对话框、字符串表、图标、版本信息和 `AFX_` 块。
-3. 新 ID 优先由 Visual Studio 资源编辑器生成；若 Codex 直接编辑，必须先读取 `resource.h` 的现有数值，使用未占用连续区间。
+3. 新 ID 优先由 Visual Studio 资源编辑器生成；若 Codex 直接编辑，必须先读取 `Resource.h` 的现有数值，使用未占用连续区间。
 4. 同一个符号只定义一次；同一个数字不能分配给两个需要独立消息的控件。
 5. 对话框模板只添加本文清单中的控件，不追求像素级还原草图。
 6. 每新增一个对话框，立刻生成一次，不要等所有资源改完再编译。
@@ -720,7 +720,7 @@ Codex 输出：
 - 阶段 0 基线无法生成。
 - 实际项目名不是 `SpaceLaunchSystem`，且用户不允许重新建基线。
 - 工作区存在与本阶段重叠的未提交修改，无法确定归属。
-- `.rc` 或 `resource.h` 出现冲突、资源编辑器打不开。
+- `.rc` 或 `Resource.h` 出现冲突、资源编辑器打不开。
 - 同一编译错误修复两轮仍存在。
 - 需要安装组件、管理员权限或更改系统环境。
 - 需求与本规格矛盾，或必须增加未列出的类/库才能完成。

@@ -186,6 +186,7 @@
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="DataTypes.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="HistoryDlg.h" />
     <ClInclude Include="LaunchCheckDlg.h" />
     <ClInclude Include="LaunchSimulationDlg.h" />
     <ClInclude Include="MissionEditDlg.h" />
@@ -199,6 +200,7 @@
   <ItemGroup>
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="DataTypes.cpp" />
+    <ClCompile Include="HistoryDlg.cpp" />
     <ClCompile Include="LaunchCheckDlg.cpp" />
     <ClCompile Include="LaunchSimulationDlg.cpp" />
     <ClCompile Include="MissionEditDlg.cpp" />

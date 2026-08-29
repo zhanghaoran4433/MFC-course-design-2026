@@ -24,6 +24,9 @@
     <ClInclude Include="MissionEditDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="MissionManagerDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="SpaceLaunchSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -51,6 +54,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="MissionEditDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionManagerDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SpaceLaunchSystem.cpp">

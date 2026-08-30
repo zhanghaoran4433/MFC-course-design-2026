@@ -187,9 +187,12 @@ BOOL ParseDouble(const CString& text, double& value)
 {
     std::wistringstream stream(std::wstring(text.GetString()));
     stream.imbue(std::locale::classic());
-    stream >> value;
+    if (!(stream >> value))
+    {
+        return FALSE;
+    }
     stream >> std::ws;
-    return !stream.fail() && stream.eof();
+    return stream.eof();
 }
 
 CString FormatDouble(double value)

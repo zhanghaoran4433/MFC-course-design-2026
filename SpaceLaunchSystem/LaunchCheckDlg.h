@@ -34,6 +34,14 @@ private:
 	CString m_remarks;
 	CProgressCtrl m_readinessProgress;
 
+	BOOL IsCheckEditingAllowed(const MissionInfo* pMission) const;
+	void LoadSavedCheckResult();
+	void RefreshMissionText(const MissionInfo* pMission);
+	void RefreshControlAvailability();
+	void RestoreSavedCheckDisplay();
+	void ShowSaveBlockedMessage(MissionStatus status) const;
+	void ShowSimulationBlockedMessage(MissionStatus status) const;
+
 	afx_msg void OnCheckChanged();
 	afx_msg void OnBnClickedCheckAllPass();
 	afx_msg void OnBnClickedCheckSave();

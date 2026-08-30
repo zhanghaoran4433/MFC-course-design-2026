@@ -15,6 +15,8 @@ public:
 	enum { IDD = IDD_LAUNCH_CHECK_DIALOG };
 
 	virtual BOOL OnInitDialog();
+	void RefreshReadiness();
+	BOOL AreAllChecksPassed() const;
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
@@ -31,6 +33,9 @@ private:
 	BOOL m_weatherReady = FALSE;
 	CString m_remarks;
 	CProgressCtrl m_readinessProgress;
-public:
-	afx_msg void OnEnChangeEditCheckRemarks();
+
+	afx_msg void OnCheckChanged();
+	afx_msg void OnBnClickedCheckAllPass();
+	afx_msg void OnBnClickedCheckSave();
+	afx_msg void OnBnClickedEnterSimulation();
 };

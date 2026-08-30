@@ -16,6 +16,17 @@
 #define new DEBUG_NEW
 #endif
 
+namespace
+{
+BOOL AreSavedChecksPassed(CDataManager& dataManager, const CString& missionId)
+{
+	CheckResult* pResult = dataManager.FindCheckResult(missionId);
+	return pResult != nullptr && pResult->propulsionReady &&
+		pResult->navigationReady && pResult->communicationReady &&
+		pResult->powerReady && pResult->weatherReady;
+}
+}
+
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -149,7 +160,9 @@ void CSpaceLaunchSystemDlg::RefreshMainSummary()
 	SetDlgItemText(IDC_STATIC_SYSTEM_STATUS, systemStatus);
 
 	GetDlgItem(IDC_BUTTON_LAUNCH_CHECK)->EnableWindow(TRUE);
-	GetDlgItem(IDC_BUTTON_LAUNCH_SIMULATION)->EnableWindow(TRUE);
+	GetDlgItem(IDC_BUTTON_LAUNCH_SIMULATION)->EnableWindow(
+		pMission->status == MissionStatus::Ready &&
+		AreSavedChecksPassed(m_dataManager, pMission->missionId));
 }
 
 void CSpaceLaunchSystemDlg::OnBnClickedMissionManager()
@@ -189,9 +202,32 @@ void CSpaceLaunchSystemDlg::OnBnClickedLaunchSimulation()
 		return;
 	}
 
-	if (pMission->status != MissionStatus::Ready)
+	if (pMission->status == MissionStatus::Launching)
 	{
-		AfxMessageBox(L"请先完成全部发射检查。", MB_OK | MB_ICONINFORMATION);
+		AfxMessageBox(L"任务已经处于发射状态，不能重复进入模拟。",
+			MB_OK | MB_ICONINFORMATION);
+		RefreshMainSummary();
+		return;
+	}
+	if (pMission->status == MissionStatus::Completed)
+	{
+		AfxMessageBox(L"任务已完成，不能再次发射。",
+			MB_OK | MB_ICONINFORMATION);
+		RefreshMainSummary();
+		return;
+	}
+	if (pMission->status == MissionStatus::Aborted)
+	{
+		AfxMessageBox(L"任务已中止，不能再次发射。",
+			MB_OK | MB_ICONINFORMATION);
+		RefreshMainSummary();
+		return;
+	}
+	if (pMission->status != MissionStatus::Ready ||
+		!AreSavedChecksPassed(m_dataManager, pMission->missionId))
+	{
+		AfxMessageBox(L"请先完成并保存全部发射检查。", MB_OK | MB_ICONINFORMATION);
+		RefreshMainSummary();
 		return;
 	}
 
@@ -208,12 +244,22 @@ void CSpaceLaunchSystemDlg::OnBnClickedHistory()
 
 void CSpaceLaunchSystemDlg::OnClose()
 {
+	HandleCloseRequest();
+}
+
+void CSpaceLaunchSystemDlg::OnCancel()
+{
+	HandleCloseRequest();
+}
+
+void CSpaceLaunchSystemDlg::HandleCloseRequest()
+{
 	if (!m_dataManager.ConfirmSaveBeforeClose(this))
 	{
 		return;
 	}
 
-	CDialogEx::OnClose();
+	CDialogEx::OnCancel();
 }
 
 void CSpaceLaunchSystemDlg::OnSysCommand(UINT nID, LPARAM lParam)

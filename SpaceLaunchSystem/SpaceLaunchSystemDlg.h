@@ -29,6 +29,7 @@ protected:
 
 	// 生成的消息映射函数
 	virtual BOOL OnInitDialog();
+	virtual void OnCancel();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
@@ -38,6 +39,7 @@ protected:
 	afx_msg void OnBnClickedLaunchSimulation();
 	afx_msg void OnBnClickedHistory();
 	afx_msg void OnClose();
+	void HandleCloseRequest();
 	DECLARE_MESSAGE_MAP()
 
 private:

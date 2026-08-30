@@ -56,6 +56,13 @@
 #define IDC_BUTTON_HISTORY_DELETE       1041
 #define IDC_BUTTON_HISTORY_EXPORT       1042
 #define IDC_EDIT_HISTORY_DETAIL         1043
+#define IDC_STATIC_APP_TITLE            1044
+#define IDC_STATIC_CURRENT_MISSION      1045
+#define IDC_STATIC_SYSTEM_STATUS        1046
+#define IDC_BUTTON_MISSION_MANAGER      1047
+#define IDC_BUTTON_LAUNCH_CHECK         1048
+#define IDC_BUTTON_LAUNCH_SIMULATION    1049
+#define IDC_BUTTON_HISTORY              1050
 
 // Next default values for new objects
 // 
@@ -63,7 +70,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        134
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1044
+#define _APS_NEXT_CONTROL_VALUE         1051
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

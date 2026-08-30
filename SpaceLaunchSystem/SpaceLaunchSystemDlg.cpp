@@ -7,6 +7,10 @@
 #include "SpaceLaunchSystem.h"
 #include "SpaceLaunchSystemDlg.h"
 #include "afxdialogex.h"
+#include "MissionManagerDlg.h"
+#include "LaunchCheckDlg.h"
+#include "LaunchSimulationDlg.h"
+#include "HistoryDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -65,6 +69,11 @@ BEGIN_MESSAGE_MAP(CSpaceLaunchSystemDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON_MISSION_MANAGER, &CSpaceLaunchSystemDlg::OnBnClickedMissionManager)
+	ON_BN_CLICKED(IDC_BUTTON_LAUNCH_CHECK, &CSpaceLaunchSystemDlg::OnBnClickedLaunchCheck)
+	ON_BN_CLICKED(IDC_BUTTON_LAUNCH_SIMULATION, &CSpaceLaunchSystemDlg::OnBnClickedLaunchSimulation)
+	ON_BN_CLICKED(IDC_BUTTON_HISTORY, &CSpaceLaunchSystemDlg::OnBnClickedHistory)
+	ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 
@@ -99,9 +108,112 @@ BOOL CSpaceLaunchSystemDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
-	// TODO: 在此添加额外的初始化代码
+	if (!m_dataManager.Initialize())
+	{
+		AfxMessageBox(L"数据初始化失败，部分数据可能无法加载，但主窗口仍可使用。",
+			MB_OK | MB_ICONWARNING);
+	}
+
+	RefreshMainSummary();
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
+}
+
+void CSpaceLaunchSystemDlg::RefreshMainSummary()
+{
+	MissionInfo* pMission = nullptr;
+	if (!m_currentMissionId.IsEmpty())
+	{
+		pMission = m_dataManager.FindMission(m_currentMissionId);
+	}
+
+	if (pMission == nullptr)
+	{
+		m_currentMissionId.Empty();
+		SetDlgItemText(IDC_STATIC_CURRENT_MISSION, L"当前任务：未选择");
+		SetDlgItemText(IDC_STATIC_SYSTEM_STATUS, L"系统状态：等待选择任务");
+		GetDlgItem(IDC_BUTTON_LAUNCH_CHECK)->EnableWindow(FALSE);
+		GetDlgItem(IDC_BUTTON_LAUNCH_SIMULATION)->EnableWindow(FALSE);
+		return;
+	}
+
+	CString missionSummary;
+	missionSummary.Format(L"当前任务：%s（任务 ID：%s）",
+		static_cast<LPCTSTR>(pMission->missionName),
+		static_cast<LPCTSTR>(pMission->missionId));
+	SetDlgItemText(IDC_STATIC_CURRENT_MISSION, missionSummary);
+
+	CString systemStatus;
+	systemStatus.Format(L"系统状态：%s",
+		static_cast<LPCTSTR>(MissionStatusToString(pMission->status)));
+	SetDlgItemText(IDC_STATIC_SYSTEM_STATUS, systemStatus);
+
+	GetDlgItem(IDC_BUTTON_LAUNCH_CHECK)->EnableWindow(TRUE);
+	GetDlgItem(IDC_BUTTON_LAUNCH_SIMULATION)->EnableWindow(TRUE);
+}
+
+void CSpaceLaunchSystemDlg::OnBnClickedMissionManager()
+{
+	CMissionManagerDlg dialog(&m_dataManager, &m_currentMissionId, this);
+	dialog.DoModal();
+	RefreshMainSummary();
+}
+
+void CSpaceLaunchSystemDlg::OnBnClickedLaunchCheck()
+{
+	if (m_currentMissionId.IsEmpty() ||
+		m_dataManager.FindMission(m_currentMissionId) == nullptr)
+	{
+		RefreshMainSummary();
+		AfxMessageBox(L"请先选择当前任务。", MB_OK | MB_ICONINFORMATION);
+		return;
+	}
+
+	CLaunchCheckDlg dialog(&m_dataManager, m_currentMissionId, this);
+	dialog.DoModal();
+	RefreshMainSummary();
+}
+
+void CSpaceLaunchSystemDlg::OnBnClickedLaunchSimulation()
+{
+	MissionInfo* pMission = nullptr;
+	if (!m_currentMissionId.IsEmpty())
+	{
+		pMission = m_dataManager.FindMission(m_currentMissionId);
+	}
+
+	if (pMission == nullptr)
+	{
+		RefreshMainSummary();
+		AfxMessageBox(L"请先选择当前任务。", MB_OK | MB_ICONINFORMATION);
+		return;
+	}
+
+	if (pMission->status != MissionStatus::Ready)
+	{
+		AfxMessageBox(L"请先完成全部发射检查。", MB_OK | MB_ICONINFORMATION);
+		return;
+	}
+
+	CLaunchSimulationDlg dialog(&m_dataManager, m_currentMissionId, this);
+	dialog.DoModal();
+	RefreshMainSummary();
+}
+
+void CSpaceLaunchSystemDlg::OnBnClickedHistory()
+{
+	CHistoryDlg dialog(&m_dataManager, this);
+	dialog.DoModal();
+}
+
+void CSpaceLaunchSystemDlg::OnClose()
+{
+	if (!m_dataManager.ConfirmSaveBeforeClose(this))
+	{
+		return;
+	}
+
+	CDialogEx::OnClose();
 }
 
 void CSpaceLaunchSystemDlg::OnSysCommand(UINT nID, LPARAM lParam)

@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "DataManager.h"
+
 
 // CSpaceLaunchSystemDlg 对话框
 class CSpaceLaunchSystemDlg : public CDialogEx
@@ -30,5 +32,15 @@ protected:
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
+	void RefreshMainSummary();
+	afx_msg void OnBnClickedMissionManager();
+	afx_msg void OnBnClickedLaunchCheck();
+	afx_msg void OnBnClickedLaunchSimulation();
+	afx_msg void OnBnClickedHistory();
+	afx_msg void OnClose();
 	DECLARE_MESSAGE_MAP()
+
+private:
+	CDataManager m_dataManager;
+	CString m_currentMissionId;
 };

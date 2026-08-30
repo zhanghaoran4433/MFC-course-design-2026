@@ -25,4 +25,11 @@ private:
 	CString m_keyword;
 	int m_resultFilter = 0;
 	std::vector<size_t> m_visibleRecordIndexes;
+
+	void RefreshHistoryList();
+	int GetSelectedVisibleIndex() const;
+	afx_msg void OnBnClickedHistorySearch();
+	afx_msg void OnBnClickedHistoryDetail();
+	afx_msg void OnBnClickedHistoryDelete();
+	afx_msg void OnBnClickedHistoryExport();
 };

@@ -15,6 +15,13 @@ public:
 	enum { IDD = IDD_MISSION_MANAGER_DIALOG };
 
 	virtual BOOL OnInitDialog();
+	void RefreshMissionList();
+	int GetSelectedMissionIndex() const;
+	afx_msg void OnBnClickedMissionAdd();
+	afx_msg void OnBnClickedMissionModify();
+	afx_msg void OnBnClickedMissionDelete();
+	afx_msg void OnBnClickedMissionSelect();
+	afx_msg void OnBnClickedMissionSave();
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
@@ -25,6 +32,4 @@ private:
 	CDataManager* m_pDataManager = nullptr;
 	CString* m_pCurrentMissionId = nullptr;
 	CListCtrl m_missionList;
-public:
-	afx_msg void OnLvnItemchangedListMissions(NMHDR* pNMHDR, LRESULT* pResult);
 };

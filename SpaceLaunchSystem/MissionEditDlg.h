@@ -16,6 +16,8 @@ public:
 	BOOL m_isModifyMode = FALSE;
 
 	virtual BOOL OnInitDialog();
+	virtual void OnOK();
+	BOOL ValidateInput(CString& errorMessage) const;
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
